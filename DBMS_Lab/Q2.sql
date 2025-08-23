@@ -1,4 +1,10 @@
-/*1*/
+/*----------------------------------------------------------
+1. Consider the following database with these relations
+   employee (employee_name, street, city)
+   works (employee_name, company_name, salary)
+----------------------------------------------------------*/
+
+/* Create employee and works tables */
 CREATE TABLE employee (
   employee_name VARCHAR(20) PRIMARY KEY,
   street        VARCHAR(30),
@@ -13,7 +19,10 @@ CREATE TABLE works (
   FOREIGN KEY (employee_name) REFERENCES employee(employee_name)
 );
 
-/*a*/
+
+/*----------------------------------------------------------
+ a) Insert the following data into employee and works
+----------------------------------------------------------*/
 INSERT INTO employee (employee_name, street, city) VALUES
   ('Arif',   '51 upashahar',   'Rajshahi'),
   ('Sumon',  '52 east',        'Moynamati'),
@@ -37,135 +46,182 @@ SELECT * FROM employee;
 SELECT * FROM works;
 
 
-/*b*/
+/*----------------------------------------------------------
+ b) Find the names of all employees who live in Rajshahi city
+----------------------------------------------------------*/
 SELECT employee_name
 FROM employee
 WHERE city = 'Rajshahi';
 
 
-/*c*/
+/*----------------------------------------------------------
+ c) Find the names and street addresses of all employees 
+    who live in Rajshahi city
+----------------------------------------------------------*/
 SELECT employee_name, street
 FROM employee
 WHERE city = 'Rajshahi';
 
 
-/*d*/
-/*i*/
+/*----------------------------------------------------------
+ d) Find the names of all employees who work for:
+    i) Sonali   ii) Agrani   iii) Janata
+----------------------------------------------------------*/
+-- i) Sonali
 SELECT employee_name
 FROM works
 WHERE company_name = 'Sonali';
 
-/*ii*/
+-- ii) Agrani
 SELECT employee_name
 FROM works
 WHERE company_name = 'Agrani';
 
-/*iii*/
+-- iii) Janata
 SELECT employee_name
 FROM works
 WHERE company_name = 'Janata';
 
 
-/*e*/
-/*i*/
+/*----------------------------------------------------------
+ e) Find the names and salary of all employees who work for:
+    i) Sonali   ii) Agrani   iii) Janata
+----------------------------------------------------------*/
+-- i) Sonali
 SELECT employee_name, salary
 FROM works
 WHERE company_name = 'Sonali';
 
-/*ii*/
+-- ii) Agrani
 SELECT employee_name, salary
 FROM works
 WHERE company_name = 'Agrani';
 
-/*iii*/
+-- iii) Janata
 SELECT employee_name, salary
 FROM works
 WHERE company_name = 'Janata';
 
 
-/*f*/
-/*i*/
+/*----------------------------------------------------------
+ f) Find the names of all employees whose salary is:
+    i) 12000   ii) >=12000   iii) <12000
+----------------------------------------------------------*/
+-- i) Salary = 12000
 SELECT employee_name
 FROM works
 WHERE salary = 12000;
 
-/*ii*/
+-- ii) Salary >= 12000
 SELECT employee_name
 FROM works
 WHERE salary >= 12000;
 
-/*iii*/
+-- iii) Salary < 12000
 SELECT employee_name
 FROM works
 WHERE salary < 12000;
 
 
-/*g*/
-/*i*/
+/*----------------------------------------------------------
+ g) Find the names and company of all employees whose salary is:
+    i) 12000   ii) >=12000   iii) <12000
+----------------------------------------------------------*/
+-- i) Salary = 12000
 SELECT employee_name, company_name
 FROM works
 WHERE salary = 12000;
 
-/*ii*/
+-- ii) Salary >= 12000
 SELECT employee_name, company_name
 FROM works
 WHERE salary >= 12000;
 
-/*iii*/
+-- iii) Salary < 12000
 SELECT employee_name, company_name
 FROM works
 WHERE salary < 12000;
 
 
-/*h*/
+/*----------------------------------------------------------
+ h) Find the names, streets and cities of all employees 
+    who work for Agrani
+----------------------------------------------------------*/
 SELECT e.employee_name, e.street, e.city
 FROM employee e
-JOIN works w ON e.employee_name = w.employee_name and w.company_name = 'Agrani';
+JOIN works w ON e.employee_name = w.employee_name
+WHERE w.company_name = 'Agrani';
 
 
-/*i*/
+/*----------------------------------------------------------
+ i) Find the names, streets and cities of all employees 
+    who earn >= 10000
+----------------------------------------------------------*/
 SELECT e.employee_name, e.street, e.city
 FROM employee e
-JOIN works w ON e.employee_name = w.employee_name and w.salary >= 10000;
+JOIN works w ON e.employee_name = w.employee_name
+WHERE w.salary >= 10000;
 
 
-/*j*/
+/*----------------------------------------------------------
+ j) Find the names, company and salary of all employees 
+    who live in Rajshahi city
+----------------------------------------------------------*/
 SELECT w.employee_name, w.company_name, w.salary
 FROM works w
-JOIN employee e ON e.employee_name = w.employee_name and e.city = 'Rajshahi';
+JOIN employee e ON e.employee_name = w.employee_name
+WHERE e.city = 'Rajshahi';
 
-/*k*/
+
+/*----------------------------------------------------------
+ k) Find the names, streets, cities and companies 
+    of all employees who earn >=10000
+----------------------------------------------------------*/
 SELECT e.employee_name, e.street, e.city, w.company_name
 FROM employee e
-JOIN works w ON e.employee_name = w.employee_name and w.salary >= 10000;
+JOIN works w ON e.employee_name = w.employee_name
+WHERE w.salary >= 10000;
 
 
-/*l*/
+/*----------------------------------------------------------
+ l) Find the names, streets and cities of all employees 
+    who work for Sonali and earn more than 12000
+----------------------------------------------------------*/
 SELECT e.employee_name, e.street, e.city
 FROM employee e
-JOIN works w ON e.employee_name = w.employee_name and w.salary > 12000 and w.company_name = 'Sonali';
+JOIN works w ON e.employee_name = w.employee_name
+WHERE w.salary > 12000 AND w.company_name = 'Sonali';
 
 
-/*m*/
+/*----------------------------------------------------------
+ m) Find all employees in the database who do not work for Sonali
+----------------------------------------------------------*/
 SELECT employee_name
 FROM works
 WHERE company_name != 'Sonali';
 
-/*n*/
-update employee
-set city = 'Nator'
-WHERE employee_name = 'Arif';
 
+/*----------------------------------------------------------
+ n) Modify the database so that “Arif” now lives in Natore
+----------------------------------------------------------*/
+UPDATE employee
+SET city = 'Natore'
+WHERE employee_name = 'Arif';
 
 SELECT * FROM employee;
 
-/*o*/
+
+/*----------------------------------------------------------
+ o) Give all employees of “Agrani” Bank 10 percent salary raise
+----------------------------------------------------------*/
 UPDATE works
 SET salary = salary * 1.10
 WHERE company_name = 'Agrani';
 
 
-/*p*/
+/*----------------------------------------------------------
+ p) Delete all records for Sagor in employee and works tables
+----------------------------------------------------------*/
 DELETE FROM works
 WHERE employee_name = 'Sagor';
 
@@ -173,30 +229,15 @@ DELETE FROM employee
 WHERE employee_name = 'Sagor';
 
 
-/*q*/
--- First create company table (if not already created)
+/*----------------------------------------------------------
+ q) Add a column 'manager' in the company table
+----------------------------------------------------------*/
+-- Create company table if not exists
 CREATE TABLE company (
   company_name VARCHAR(20) PRIMARY KEY,
   city         VARCHAR(20)
 );
 
--- Now add a new column 'manager'
+-- Add manager column
 ALTER TABLE company
 ADD manager VARCHAR(20);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
