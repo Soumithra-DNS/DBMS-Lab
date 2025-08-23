@@ -1,4 +1,6 @@
-/*1*/
+/*----------------------------------------------------------
+  1. Create student table and insert values
+----------------------------------------------------------*/
 CREATE TABLE student(
   Roll VARCHAR(20) PRIMARY KEY,
   Name VARCHAR(20),
@@ -17,7 +19,10 @@ INSERT INTO student (Roll, Name, Dept, Year, Semester) VALUES
 
 SELECT * FROM student;
 
-/*2*/
+
+/*----------------------------------------------------------
+  2. Create studentInfo table and insert values
+----------------------------------------------------------*/
 CREATE TABLE student1 (
     Roll VARCHAR(20) PRIMARY KEY,
     Name VARCHAR(20),
@@ -36,49 +41,56 @@ INSERT INTO student1 (Roll, Name, FatherName, Address, Mobile) VALUES
 
 SELECT * FROM student1;
 
-/*3*/
-/*1*/
-/*i*/
+
+/*----------------------------------------------------------
+  3. Queries
+----------------------------------------------------------*/
+
+/* (i) Find out the names of those students who are in 1st semester */
 SELECT Name FROM student
 WHERE Semester = '1st';
 
-/*ii*/
+/* (ii) Find out the names of those students who are in 2nd year */
 SELECT Name
 FROM student
 WHERE Year = '2nd';
 
-/*iii*/
+/* (iii) Find out the names of those students who are in CSE */
 SELECT Name
 FROM student
 WHERE Dept = 'CSE';
 
-/*iv*/
+/* (iv) Find out the name of the student whose roll is 06543201 */
 SELECT Name
 FROM student
 WHERE Roll = '06543201';
 
-/*2*/
-/*i*/
+
+/*----------------------------------------------------------
+   Queries on student1
+----------------------------------------------------------*/
+
+/* (i) Find out the names, address and mobile for those students whose father’s name is Rahman */
 SELECT Name, Address, Mobile
 FROM student1
 WHERE FatherName = 'Rahman';
 
-/*ii*/
+/* (ii) Find out the names, address and mobile for those students whose mobile is 01719202020 */
 SELECT Name, Address, Mobile
 FROM student1
 WHERE Mobile = '01719202020';
 
-/*iii*/
+/* (iii) Find out the names, address and mobile for those students whose address is Rajshahi */
 SELECT Name, Address, Mobile
 FROM student1
 WHERE Address = 'Rajshahi';
 
-/*iv*/
+/* (iv) Find out the names, address and mobile for those students whose address is Rajshahi and father’s name Rahman */
 SELECT Name, Address, Mobile
 FROM student1
 WHERE Address = 'Rajshahi' AND FatherName = 'Rahman';
 
-/*v*/
+/* (v) Find out the names, address and mobile for those students whose roll is 05654456 */
 SELECT Name, Address, Mobile
 FROM student1
 WHERE Roll = '05654456';
