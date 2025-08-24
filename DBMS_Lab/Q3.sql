@@ -1,3 +1,6 @@
+/*1. Insurance Database*/
+
+/* Create tables */
 CREATE TABLE person (
   nid INT PRIMARY KEY,
   name VARCHAR(100),
@@ -33,7 +36,7 @@ CREATE TABLE log (
   FOREIGN KEY (license) REFERENCES car(license)
 );
 
-/*A*/
+/* a) Insert the given data into person, car, accident, owns, and log tables */
 INSERT INTO person VALUES
 (123451, 'Arif', 'Rajshahi'),
 (123452, 'Sumon', 'Moynamati'),
@@ -82,71 +85,70 @@ INSERT INTO log VALUES
 ('11-3000', '2013-05-15', 'Arif'),
 ('11-3000', '2014-08-20', 'Arif');
 
-SELECT * FROM person;
 
-SELECT * FROM car;
-
-SELECT * FROM accident;
-
-SELECT * FROM owns;
-
-SELECT * FROM log;
-
-
-/*B*/
+-- b) Find the names of all persons who live in Rajshahi.
 SELECT name 
 FROM person 
 WHERE address = 'Rajshahi';
 
-/*C*/
+
+-- c) Which model was sold in 2013?
 SELECT DISTINCT model
 FROM car
 WHERE year = 2013;
 
-/*D*/
+
+-- d) Find the names of those drivers where damage amount is between 10000 and 15000.
 SELECT driver 
 FROM accident
 WHERE damage_amount BETWEEN 10000 AND 15000;
 
-/*E*/
+
+-- e) Find the national id (nid) of those persons who have Axio.
 SELECT DISTINCT p.nid
 FROM person p
 JOIN owns o ON p.nid = o.nid
 JOIN car c ON o.license = c.license
 WHERE c.model = 'Axio';
 
-/*F*/
+
+-- f) Find the name and address of those persons who have Alto.
 SELECT p.name, p.address
 FROM person p
 JOIN owns o ON p.nid = o.nid
 JOIN car c ON o.license = c.license
 WHERE c.model = 'Alto';
 
-/*G*/
+
+-- g) Who (driver) was involved in the accident on 20/12/2011?
 SELECT driver
 FROM accident
 WHERE date_ = '2011-12-20';
 
-/*H*/
+
+-- h) Who was the owner of the car with license 12-4000?
 SELECT p.name
 FROM person p
 JOIN owns o ON p.nid = o.nid
 WHERE o.license = '12-4000';
 
-/*I*/
+
+-- i) Who was the owner of the car whose driver is Arif?
 SELECT DISTINCT p.name
 FROM person p
 JOIN owns o ON p.nid = o.nid
 JOIN log l ON o.license = l.license
 WHERE l.driver = p.name;
 
-/*J*/
+
+-- j) Which car was involved in accident on 19/09/2015?
 SELECT l.license
 FROM log l
 JOIN accident a ON l.date_ = a.date_ AND l.driver = a.driver
 WHERE a.date_ = '2015-09-19';
 
-/*K*/
+
+-- k) Find the number of accidents in which the cars belonging to “Arif” were involved.
 SELECT COUNT(*) AS num_of_accidents
 FROM accident a
 JOIN log l ON a.date_ = l.date_ AND a.driver = l.driver
@@ -154,7 +156,8 @@ JOIN owns o ON l.license = o.license
 JOIN person p ON o.nid = p.nid
 WHERE p.name = 'Arif';
 
-/*L*/
+
+-- l) Find the dates of accidents in which the cars belonging to “Arif” were involved.
 SELECT DISTINCT a.date_
 FROM accident a
 JOIN log l ON a.date_ = l.date_ AND a.driver = l.driver
@@ -162,7 +165,8 @@ JOIN owns o ON l.license = o.license
 JOIN person p ON o.nid = p.nid
 WHERE p.name = 'Arif';
 
-/*Update*/
+
+-- m) Modify the database so that “Arif” now lives in Natore.
 UPDATE person
 SET address = 'Natore'
 WHERE name = 'Arif';
